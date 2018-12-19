@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <script>
+    
+    TPR = [0,0.003675,0.045733,0.071049,1.000000];
+    FPR = [0,0.779237,0.959975,0.969981,1.000000];
+    probabilidad = [1,0.985759,0.583838,0.114286,0.010439];
+    aceptados = [0,1264,1759,1899,6497];
+    TP = [0,1246,1535,1551,1599];
+    FP = [0,18,224,348,4898];
+    
+    texto = [];
+
+    for (i=0;i<TPR.length;i++){
+        texto[i] = 'Sensibilidad: ' + TPR[i] + '<br>1-Especificidad: ' + FPR[i] + '<br>Probabilidad: ' + probabilidad[i] + '<br>Aceptados: ' + aceptados[i] + '<br>Verdaderos Positivos: ' + TP[i] + '<br>Falsos Positivos: ' + FP[i]
+    }
+
+    var trace1 = {
+        x: TPR,
+        y: FPR,
+        mode: 'lines+markers',
+        text: texto,
+        hoverinfo: 'text',
+        showlegend: false
+        };
+    
+    var trace2 = {
+        x: [0,1.000000],
+        y: [0,1.000000],
+        mode: 'lines',
+        showlegend: false,
+        hoverinfo: 'skip'
+        };
+
+
+var data = [ trace1,trace2 ];
+
+var layout = {
+    'title': 'Curva ROC',
+                'yaxis':{'title':'Sensibilidad'},
+                'xaxis':{'title':'1-Especificidad'}
+
+};
+
+Plotly.newPlot('myDiv', data, layout, {showSendToCloud: true});
+    </script>
+</body>
+</html>
